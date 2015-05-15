@@ -20,6 +20,6 @@ Root mode install
 * Set metacity align right:
 <p><code>$ gconftool-2 --set /apps/metacity/general/button_layout --type string \\\":minimize,maximize,close\\\"</p></code>
 
-# Changelog:
+# Changelog
 * Colors Changed to Blue
 * Fixed some problems
