@@ -1,0 +1,45 @@
+#!/bin/sh
+
+echo "Removing...[theme]"
+echo ""
+
+read -p "Are you remove theme? (y/n): " REMOVE_PRT
+case $REMOVE_PRT in
+"y")
+case $USER in
+"root")
+rm -rfv /home/$USER/.themes/japred-blue
+;;
+*)
+rm -rfv /usr/share/themes/japred-blue
+;;
+esac
+;;
+"n")
+echo "Nothings removed!"
+;;
+*)
+echo "Nothings removed!"
+;;
+esac
+
+
+echo "Setting...[metacity]"
+echo ""
+read -p "Where are your metacity buttons align? (left/right): " METACITY_SET
+echo ""
+case $METACITY_SET in
+"left")
+gconftool-2 --set /apps/metacity/general/button_layout --type string "close,minimize,maximize:"
+echo "Metacity buttons align left now!"
+;;
+"right")
+gconftool-2 --set /apps/metacity/general/button_layout --type string ":minimize,maximize,close"
+echo "Metacity buttons align right now!"
+;;
+*)
+echo "Metacity buttons can't changed!"
+;;
+esac
+
+echo "Finished."

@@ -1,0 +1,52 @@
+#!/bin/sh
+copy_dirs(){
+cp -av ../japred-blue/ $THEME_FOLDER
+chmod 777 -Rv $THEME_FOLDER/japred-blue/
+
+}
+
+case $USER in
+"root")
+
+echo "This installer copy all files on default system themes folder... Where is your system folder?"
+read -p "(default folder: /usr/share/themes): " THEME_FOLDER
+
+if [ $THEME_FOLDER="" ];then
+THEME_FOLDER="/usr/share/themes"
+copy_dirs
+else
+copy_dirs
+fi
+
+;;
+*)
+
+echo "This installer copy all files on your user folder... Which folder do you use default themes folder?"
+read -p "(default folder is now in /home/$USER/.themes): " THEME_FOLDER 
+
+if [ $THEME_FOLDER="" ];then
+THEME_FOLDER="/home/$USER/.themes"
+copy_dirs
+else
+copy_dirs
+fi
+
+;;
+esac
+
+echo ""
+read -p "Where are your metacity buttons align? (left/right): " METACITY_SET
+echo ""
+case $METACITY_SET in
+"left")
+gconftool-2 --set /apps/metacity/general/button_layout --type string "close,minimize,maximize:"
+echo "Metacity buttons align left now!"
+;;
+"right")
+gconftool-2 --set /apps/metacity/general/button_layout --type string ":minimize,maximize,close"
+echo "Metacity buttons align right now!"
+;;
+*)
+echo "Metacity buttons can't changed!"
+;;
+esac
